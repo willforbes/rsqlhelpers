@@ -12,7 +12,9 @@ safeSQLVar <- function(var) {
   ret_vec <- rep("", length(var))
 
   for (i in 1:length(var)) {
-    if (is.na(var[i])) {
+    if (is.null(var[i]) | identical(var[i], character(0))) {
+      ret_vec[i] <- "NULL"
+    }else if (is.na(var[i])) {
       ret_vec[i] <- "NULL"
     } else if (is.character(var[i])) {
       ret_vec[i] <- paste("'", gsub("'", "\\\\'", var[i]), "'", sep = "")
